@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <title>播放器</title>
+    <style type="text/css">
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        overflow: hidden;
+      }
+      body {
+        display: flex;
+      }
+      #mse {
+        flex: auto;
+      }
+      .zj1 {
+        padding: 5px;
+        position: absolute;
+        height: 25px;
+        width: 100%;
+        background: #fff;
+        z-index: 1;
+      }
+    </style>
+    <script type="text/javascript">
+      window.addEventListener("resize", function () {
+        document.getElementById("mse").style.height = window.innerHeight + "px";
+      });
+    </script>
+  </head>
+  <body>
+    <div id="mse"></div>
+    <div id="interactive_bar" class="zj1">
+      <input id="play_url" type="text" style="width: 80%" />
+      <button type="button" onclick="playVideo()" style="width: 10%">
+        播放
+      </button>
+    </div>
+    <script
+      src="http://unpkg.byted-static.com/xgplayer/2.31.2/browser/index.js"
+      charset="utf-8"
+    ></script>
+    <script
+      src="http://unpkg.byted-static.com/xgplayer-mp4/2.0.0/browser/index.js"
+      charset="utf-8"
+    ></script>
+    <script
+      src="http://unpkg.byted-static.com/xgplayer-hls.js/2.2.2/browser/index.js"
+      charset="utf-8"
+    ></script>
+    <script
+      src="http://cdn.jsdelivr.net/npm/xgplayer-flv/dist/index.min.js"
+      charset="utf-8"
+    ></script>
+    <script type="text/javascript">
+      function playVideo() {
+        document.getElementById("interactive_bar").style.display = "none"; //隐藏
+        let playUrl = document.getElementById("play_url").value;
+        var config = {
+          id: "mse",
+          url: document.getElementById("play_url").value,
+          autoplay: true,
+          videoInit: true,
+          playsinline: true,
+          height: window.innerHeight,
+          width: window.innerWidth,
+          whitelist: [""],
+          maxBufferLength: 10,
+          playbackRate: [0.5, 0.75, 1, 1.25, 1.5, 2],
+          download: true,
+          pip: true,
+          miniplayer: true,
+          miniplayerConfig: {
+            bottom: 200,
+            right: 0,
+            width: 320,
+            height: 180,
+          },
+          screenShot: {
+            saveImg: true,
+            quality: 0.92,
+            type: "image/png",
+            format: ".png",
+          },
+        };
+        let player = {};
+        if (endWith(playUrl, "mp4")) {
+          player = new window.Mp4Player(config);
+        } else if (endWith(playUrl, "m3u8")) {
+          player = new window.HlsJsPlayer(config);
+        } else if (endWith(playUrl, "flv")) {
+          player = new window.FlvPlayer(config);
+        } else {
+          player = new window.Player(config);
+        }
+        player.on("controlShow", function () {
+          document.getElementById("interactive_bar").style.display = "";
+        });
+        player.on("pause", function () {
+          document.getElementById("interactive_bar").style.display = "";
+        });
+        player.on("ended", function () {
+          document.getElementById("interactive_bar").style.display = "";
+        });
+        player.on("waiting", function () {
+          document.getElementById("interactive_bar").style.display = "";
+        });
+        player.on("controlHide", function () {
+          document.getElementById("interactive_bar").style.display = "none"; //隐藏
+        });
+      }
+      function endWith(str, target) {
+        var start = str.length - target.length;
+        var arr = str.substr(start, target.length);
+        if (arr == target) {
+          return true;
+        }
+        return false;
+      }
+    </script>
+  </body>
+</html>
