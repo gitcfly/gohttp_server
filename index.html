@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui" />
     <meta name="referrer" content="no-referrer" />
-    <meta http-equiv="content-security-policy" content="upgrade-insecure-requests">
     <title>流媒体播放器</title>
     <style type="text/css">
         html,
@@ -49,14 +48,16 @@
             <button type="button" onclick="playVideo()" style="margin-top: 15px;">播放</button>
         </div>
     </div>
-    <script src="http://unpkg.byted-static.com/xgplayer/2.31.2/browser/index.js" charset="utf-8"></script>
-    <script src="http://unpkg.byted-static.com/xgplayer-mp4/2.0.0/browser/index.js" charset="utf-8"></script>
-    <script src="http://unpkg.byted-static.com/xgplayer-hls.js/2.2.2/browser/index.js" charset="utf-8"></script>
-    <script src="http://cdn.jsdelivr.net/npm/xgplayer-flv/dist/index.min.js" charset="utf-8"></script>
-    <script src="http://unpkg.byted-static.com/xgplayer-shaka/1.1.5/browser/index.js" charset="utf-8"></script>
+    <script src="//unpkg.byted-static.com/xgplayer/2.31.2/browser/index.js" charset="utf-8"></script>
+    <script src="//unpkg.byted-static.com/xgplayer-mp4/2.0.0/browser/index.js" charset="utf-8"></script>
+    <script src="//unpkg.byted-static.com/xgplayer-hls.js/2.2.2/browser/index.js" charset="utf-8"></script>
+    <script src="//cdn.jsdelivr.net/npm/xgplayer-flv/dist/index.min.js" charset="utf-8"></script>
+    <script src="//unpkg.byted-static.com/xgplayer-shaka/1.1.5/browser/index.js" charset="utf-8"></script>
     <script type="text/javascript">
         function playVideo() {
             let playUrl = document.getElementById("play_url").value;
+            playUrl = playUrl.replace("https:", "")
+            playUrl = playUrl.replace("http:", "")
             var config = {
                 id: "mse",
                 url: document.getElementById("play_url").value,
