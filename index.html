@@ -44,7 +44,7 @@
     <div id="interactive_bar" class="zj1">
         <textarea id="play_url" type="text" style="width: calc(100% - 80px);" rows="4" placeholder="请输入视频地址"></textarea>
         <div style="float: right; margin-right: 15px;width: 50px;">
-            <button type="button" onclick="cliearText()">清除</button><br>
+            <button type="button" onclick="clearText()">清除</button><br>
             <button type="button" onclick="playVideo()" style="margin-top: 15px;">播放</button>
         </div>
     </div>
@@ -56,11 +56,9 @@
     <script type="text/javascript">
         function playVideo() {
             let playUrl = document.getElementById("play_url").value;
-            playUrl = playUrl.replace("https:", "")
-            playUrl = playUrl.replace("http:", "")
             var config = {
                 id: "mse",
-                url: document.getElementById("play_url").value,
+                url: playUrl,
                 autoplay: true,
                 videoInit: true,
                 playsinline: true,
@@ -105,7 +103,7 @@
             });
         }
 
-        function cliearText() {
+        function clearText() {
             document.getElementById("play_url").value = "";
         }
 
