@@ -96,6 +96,19 @@
             } else {
                 player = new window.Player(config);
             }
+            
+            player.on("pause", function() {
+                document.getElementById("interactive_bar").style.display = "";
+            });
+            player.on("ended", function() {
+                document.getElementById("interactive_bar").style.display = "";
+            });
+            player.on("error", function() {
+                document.getElementById("interactive_bar").style.display = "";
+            });
+            player.on("waiting", function() {
+                document.getElementById("interactive_bar").style.display = "";
+            });
             player.on("controlShow", function() {
                 document.getElementById("interactive_bar").style.display = "";
             });
