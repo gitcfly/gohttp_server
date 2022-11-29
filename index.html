@@ -37,9 +37,7 @@
     <script src="//cdn.jsdelivr.net/npm/xgplayer-flv/dist/index.min.js" charset="utf-8"></script>
     <script src="//unpkg.byted-static.com/xgplayer-shaka/1.1.5/browser/index.js" charset="utf-8"></script>
     <script type="text/javascript">
-        function playVideo() {
-            let playUrl = document.getElementById("play_url").value;
-            var config = {
+        var config = {
                 id: "mse",
                 url: playUrl,
                 autoplay: true,
@@ -66,7 +64,12 @@
                     format: ".png",
                 },
             };
-            let player = {};
+        var player = {initedByVideo:false};
+        function playVideo() {
+            if(player.initedByVideo){
+                player.destroy(true)
+            }
+            let playUrl = document.getElementById("play_url").value;
             if (endWith(playUrl, "mp4")) {
                 player = new window.Mp4Player(config);
             } else if (endWith(playUrl, "m3u8")) {
@@ -78,7 +81,7 @@
             } else {
                 player = new window.Player(config);
             }
-            
+            player.initedByVideo=true
             player.on("pause", function() {
                 document.getElementById("interactive_bar").style.display = "";
             });
