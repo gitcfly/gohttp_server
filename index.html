@@ -39,7 +39,6 @@
     <script type="text/javascript">
         var config = {
                 id: "mse",
-                url: playUrl,
                 autoplay: true,
                 videoInit: true,
                 playsinline: true,
@@ -70,6 +69,7 @@
                 player.destroy(true)
             }
             let playUrl = document.getElementById("play_url").value;
+            config.url=playUrl
             if (endWith(playUrl, "mp4")) {
                 player = new window.Mp4Player(config);
             } else if (endWith(playUrl, "m3u8")) {
