@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -20,8 +21,13 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello Wrold!") //这个写入到w的是输出到客户端的
 }
 func main() {
-	http.HandleFunc("/", sayhelloName)       //设置访问的路由
-	err := http.ListenAndServe(":9090", nil) //设置监听的端口
+	http.HandleFunc("/api", sayhelloName) //设置访问的路由
+	var port = "8080"
+	if key := os.Getenv("PORT_KEY"); key != "" {
+		port = os.Getenv(key)
+	}
+	fmt.Println("server run port:", port)
+	err := http.ListenAndServe(fmt.Sprintf(":%v", port), nil) //设置监听的端口
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
